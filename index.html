@@ -57,18 +57,42 @@
         box-shadow: 0 0 0 3px rgba(11, 61, 145, 0.2);
     }
 
-    /* จำกัดความยาวมาตรการควบคุมในตาราง (2 บรรทัด) */
-    .line-clamp-2 {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+    /* ตาราง Controls */
+    #controls-table {
+        table-layout: fixed;
+        width: 100%;
     }
-
-    /* ตาราง Controls ให้เซลล์จัดชิดบนเมื่อมีหลายบรรทัด */
+    #controls-table th,
     #controls-table td {
         vertical-align: top;
-    }    
+        word-break: break-word;
+    }
+    /* ความกว้างคอลัมน์ */
+    #controls-table th:nth-child(1),
+    #controls-table td:nth-child(1) { width: 9%; }   /* Control ID */
+    #controls-table th:nth-child(2),
+    #controls-table td:nth-child(2) { width: 18%; }  /* หมวดหมู่ */
+    #controls-table th:nth-child(3),
+    #controls-table td:nth-child(3) { width: 48%; }  /* หัวข้อ + มาตรการ */
+    #controls-table th:nth-child(4),
+    #controls-table td:nth-child(4) { width: 15%; }  /* การบังคับใช้ */
+    #controls-table th:nth-child(5),
+    #controls-table td:nth-child(5) { width: 10%; }  /* รายละเอียด */
+
+    /* มือถือ: ลด padding และให้ข้อความห่อได้ดี */
+    @media (max-width: 768px) {
+        #controls-table th,
+        #controls-table td {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+            font-size: 0.8rem;
+        }
+        #controls-table th:nth-child(1),
+        #controls-table td:nth-child(1) { width: 12%; }
+        #controls-table th:nth-child(3),
+        #controls-table td:nth-child(3) { width: 45%; }
+    }
+        
     </style>
     
     
@@ -446,21 +470,21 @@
                 const tr = document.createElement('tr');
                 tr.className = 'control-row hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer border-b';
                 
-                // แสดงหัวข้อ + มาตรการควบคุม (บรรทัดสอง ตัวเล็ก) เพื่อแยกกรณีชื่อหัวข้อซ้ำ
+                // แสดงหัวข้อ + มาตรการควบคุม (ไม่ตัดข้อความ)
                 const measureText = (control.measure || '').trim();
                 const measureHtml = measureText 
-                    ? `<div class="text-xs text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed line-clamp-2" title="${measureText.replace(/"/g, '&quot;')}">${measureText}</div>` 
+                    ? `<div class="text-xs text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed">${measureText}</div>` 
                     : '';
                 
                 tr.innerHTML = `
-                    <td class="px-6 py-4 font-medium align-top">${control.controlId}</td>
-                    <td class="px-6 py-4 align-top">${control.category}</td>
-                    <td class="px-6 py-4 align-top">
+                    <td class="px-4 md:px-6 py-3 md:py-4 font-medium">${control.controlId}</td>
+                    <td class="px-4 md:px-6 py-3 md:py-4 text-sm">${control.category}</td>
+                    <td class="px-4 md:px-6 py-3 md:py-4">
                         <div class="font-medium text-gray-900 dark:text-gray-100">${control.title}</div>
                         ${measureHtml}
                     </td>
-                    <td class="px-6 py-4 text-center align-top">${control.compliance}</td>
-                    <td class="px-6 py-4 text-center align-top">
+                    <td class="px-4 md:px-6 py-3 md:py-4 text-center text-sm">${control.compliance}</td>
+                    <td class="px-4 md:px-6 py-3 md:py-4 text-center">
                         <i onclick="event.stopImmediatePropagation(); showControlDetail('${control.controlId}');" class="fa-solid fa-eye text-[#0b3d91]"></i>
                     </td>
                 `;
