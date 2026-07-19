@@ -217,9 +217,9 @@
             <h1 class="text-3xl font-semibold mb-2">มาตรการควบคุม (Controls)</h1>
             <p class="text-gray-600 dark:text-gray-400 mb-6">รายการมาตรการควบคุมทั้งหมดตามมาตรฐานบริการดิจิทัลภาครัฐ</p>
 
-            <!-- Filters + จำนวนมาตรการ (ย้ายขึ้นด้านบน + ขนาดใหญ่) -->
+            <!-- Filters + จำนวนมาตรการ + ปุ่มดาวน์โหลด -->
             <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
-                <div class="flex flex-wrap gap-4">
+                <div class="flex flex-wrap gap-3">
                     <div>
                         <select id="filter-app" onchange="filterControls()" class="border border-gray-300 dark:border-gray-600 rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0b3d91]">
                             <option value="all">Application Type - ทั้งหมด</option>
@@ -237,20 +237,30 @@
                         </select>
                     </div>
                     <div>
-                        <select id="filter-category" onchange="filterControls()" class="border border-gray-300 dark:border-gray-600 rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0b3d91] w-72"></select>
+                        <select id="filter-category" onchange="filterControls()" class="border border-gray-300 dark:border-gray-600 rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0b3d91] w-64"></select>
                     </div>
                 </div>
 
-                <!-- จำนวนมาตรการ (ย้ายขึ้นมา + ขนาดใหญ่) -->
-                <div class="text-right">
-                    <div class="text-sm text-gray-500 mb-1">จำนวนมาตรการที่พบ</div>
-                    <div id="filter-result" class="text-4xl font-bold text-[#0b3d91]">0</div>
-                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- จำนวนมาตรการ -->
+                    <div class="text-right mr-2">
+                        <div class="text-sm text-gray-500 mb-0.5">จำนวนมาตรการที่พบ</div>
+                        <div id="filter-result" class="text-3xl font-bold text-[#0b3d91]">0</div>
+                    </div>
 
-                <button onclick="exportTable()" class="flex items-center gap-x-2 px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-2xl hover:bg-gray-50 text-sm font-medium">
-                    <i class="fa-solid fa-download"></i>
-                    <span>ดาวน์โหลด / พิมพ์</span>
-                </button>
+                    <!-- ปุ่มดาวน์โหลดแบบประเมิน -->
+                    <a id="btn-download-form" 
+                       href="#" 
+                       class="flex items-center gap-x-2 px-5 py-2.5 rounded-2xl text-sm font-medium bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none">
+                        <i class="fa-solid fa-file-excel"></i>
+                        <span>ดาวน์โหลดแบบประเมิน</span>
+                    </a>
+
+                    <button onclick="exportTable()" class="flex items-center gap-x-2 px-5 py-2.5 border border-gray-300 dark:border-gray-600 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-700 text-sm font-medium">
+                        <i class="fa-solid fa-print"></i>
+                        <span>พิมพ์ตาราง</span>
+                    </button>
+                </div>
             </div>
 
             <!-- ตาราง -->
@@ -463,6 +473,9 @@
 
             document.getElementById('filter-result').textContent = filtered.length;
 
+            // อัปเดตปุ่มดาวน์โหลดแบบประเมิน
+            updateDownloadFormButton(currentFilters.app, currentFilters.service);
+
             const tbody = document.getElementById('controls-body');
             tbody.innerHTML = '';
 
@@ -477,20 +490,54 @@
                     : '';
                 
                 tr.innerHTML = `
-                    <td class="px-4 md:px-6 py-3 md:py-4 font-medium">${control.controlId}</td>
-                    <td class="px-4 md:px-6 py-3 md:py-4 text-sm">${control.category}</td>
-                    <td class="px-4 md:px-6 py-3 md:py-4">
+                    <td class="px-4 md:px-6 py-3 md:py-4 font-medium align-top">${control.controlId}</td>
+                    <td class="px-4 md:px-6 py-3 md:py-4 align-top text-sm">${control.category}</td>
+                    <td class="px-4 md:px-6 py-3 md:py-4 align-top">
                         <div class="font-medium text-gray-900 dark:text-gray-100">${control.title}</div>
                         ${measureHtml}
                     </td>
-                    <td class="px-4 md:px-6 py-3 md:py-4 text-center text-sm">${control.compliance}</td>
-                    <td class="px-4 md:px-6 py-3 md:py-4 text-center">
+                    <td class="px-4 md:px-6 py-3 md:py-4 text-center align-top text-sm">${control.compliance}</td>
+                    <td class="px-4 md:px-6 py-3 md:py-4 text-center align-top">
                         <i onclick="event.stopImmediatePropagation(); showControlDetail('${control.controlId}');" class="fa-solid fa-eye text-[#0b3d91]"></i>
                     </td>
                 `;
                 tr.onclick = () => showControlDetail(control.controlId);
                 tbody.appendChild(tr);
             });
+        }
+
+        // ===== ฟังก์ชันอัปเดตปุ่มดาวน์โหลดแบบประเมิน =====
+        function updateDownloadFormButton(app, service) {
+            const btn = document.getElementById('btn-download-form');
+            if (!btn) return;
+
+            // Mapping ไฟล์ตาม Application Type + Service Type
+            const fileMap = {
+                'web-informational': 'W1_DSSAssessmentForm_Web_Informational.xlsx',
+                'web-partial':       'W2_DSSAssessmentForm_Web_Partial.xlsx',
+                'web-fully':         'W3_DSSAssessmentForm_Web_Fully.xlsx',
+                'web-portal':        'W4_DSSAssessmentForm_Web_Portal.xlsx',
+                'mobile-informational': 'M1_DSSAssessmentForm_Mobile_Informational.xlsx',
+                'mobile-partial':       'M2_DSSAssessmentForm_Mobile_Partial.xlsx',
+                'mobile-fully':         'M3_DSSAssessmentForm_Mobile_Fully.xlsx',
+                'mobile-portal':        'M4_DSSAssessmentForm_Mobile_Portal.xlsx'
+            };
+
+            const key = `${app}-${service}`;
+            const fileName = fileMap[key];
+
+            if (fileName) {
+                // เปิดใช้งานปุ่ม
+                btn.href = fileName;
+                btn.className = 'flex items-center gap-x-2 px-5 py-2.5 rounded-2xl text-sm font-medium bg-emerald-600 text-white hover:bg-emerald-700 cursor-pointer';
+                btn.classList.remove('pointer-events-none');
+                btn.setAttribute('download', fileName);
+            } else {
+                // ปิดใช้งานปุ่ม (กรณีเลือก "ทั้งหมด")
+                btn.href = '#';
+                btn.className = 'flex items-center gap-x-2 px-5 py-2.5 rounded-2xl text-sm font-medium bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none';
+                btn.removeAttribute('download');
+            }
         }
 
 function showControlDetail(id) {
