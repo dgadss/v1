@@ -282,67 +282,112 @@
             </div>
         </div>
 
-        <!-- ==================== IMPACT PAGE ==================== -->
+               <!-- ==================== IMPACT PAGE ==================== -->
         <div id="page-impact" class="page">
-            <h1 class="text-3xl font-semibold mb-2">การประเมินระดับผลกระทบ (Impact Level)</h1>
-            <p class="text-gray-600 dark:text-gray-400 mb-8">ประเมินระดับผลกระทบของบริการเบื้องต้นเท่านั้น สามารถศึกษารายละเอียดการประเมินจากประกาศคณะกรรมการการรักษาความมั่นคงปลอดภัยไซเบอร์แห่งชาติ เรื่อง มาตรฐานการกำหนดคุณลักษณะความมั่นคงปลอดภัยไซเบอร์ให้แก่ข้อมูลหรือระบบสารสนเทศ พ.ศ. 2566</p>
+            <div class="mb-8">
+                <h1 class="text-3xl font-semibold mb-2">การประเมินระดับผลกระทบ (Impact Level)</h1>
+                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                    ประเมินตามประกาศคณะกรรมการการรักษาความมั่นคงปลอดภัยไซเบอร์แห่งชาติ 
+                    เรื่อง มาตรฐานการกำหนดคุณลักษณะความมั่นคงปลอดภัยไซเบอร์ให้แก่ข้อมูลหรือระบบสารสนเทศ พ.ศ. 2566
+                </p>
+            </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <div class="lg:col-span-7 space-y-10">
-                    <!-- ด้าน 1 -->
+            <!-- ข้อมูลระบบ -->
+            <div class="bg-white dark:bg-gray-800 rounded-3xl border p-6 mb-8">
+                <h2 class="font-semibold text-lg mb-4">ข้อมูลระบบสารสนเทศ</h2>
+                <div class="grid md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium mb-4">1. มูลค่าความเสียหายทางการเงินหรือทรัพย์สินหรือต่อชื่อเสียงของหน่วยงาน</label>
-                        <div class="flex gap-3">
-                            <button onclick="selectImpact(this, 1, 'low')" data-criterion="1" data-level="low" class="impact-btn flex-1 py-4 rounded-2xl border-2 border-gray-200 text-center text-sm font-medium hover:border-[#0b3d91]">ต่ำ</button>
-                            <button onclick="selectImpact(this, 1, 'medium')" data-criterion="1" data-level="medium" class="impact-btn flex-1 py-4 rounded-2xl border-2 border-gray-200 text-center text-sm font-medium hover:border-[#0b3d91]">ปานกลาง</button>
-                            <button onclick="selectImpact(this, 1, 'high')" data-criterion="1" data-level="high" class="impact-btn flex-1 py-4 rounded-2xl border-2 border-gray-200 text-center text-sm font-medium hover:border-[#0b3d91]">สูง</button>
+                        <label class="block text-sm font-medium mb-1.5">ชื่อระบบสารสนเทศ / บริการ</label>
+                        <input id="system-name" type="text" placeholder="เช่น ระบบลงทะเบียนออนไลน์" 
+                               class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#0b3d91]">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1.5">ชื่อหน่วยงาน</label>
+                        <input id="agency-name" type="text" placeholder="เช่น สำนักงานพัฒนารัฐบาลดิจิทัล (สพร.)" 
+                               class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#0b3d91]">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+                <!-- ด้านซ้าย: แบบประเมิน 15 ข้อ -->
+                <div class="xl:col-span-8 space-y-10">
+
+                    <!-- ========== C: Confidentiality ========== -->
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-full">C</span>
+                            <h3 class="text-xl font-semibold">ด้านการรักษาความลับ (Confidentiality)</h3>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-5">พิจารณาผลกระทบเมื่อข้อมูลถูกเปิดเผยโดยไม่ได้รับอนุญาต</p>
+                        
+                        <div class="space-y-5" id="group-c">
+                            <!-- จะถูกสร้างด้วย JS -->
                         </div>
                     </div>
 
-                    <!-- ด้าน 2 -->
+                    <!-- ========== I: Integrity ========== -->
                     <div>
-                        <label class="block text-sm font-medium mb-4">2. จำนวนของผู้ใช้บริการของหน่วยงานบุคลากรของหน่วยงานหรือประชาชนที่อาจได้รับอันตรายต่อชีวิต ร่างกาย อนามัย ทรัพย์สิน หรือความเสียหายอื่นใด</label>
-                        <div class="flex gap-3">
-                            <button onclick="selectImpact(this, 2, 'low')" data-criterion="2" data-level="low" class="impact-btn flex-1 py-4 rounded-2xl border-2 border-gray-200 text-center text-sm font-medium hover:border-[#0b3d91]">ต่ำ</button>
-                            <button onclick="selectImpact(this, 2, 'medium')" data-criterion="2" data-level="medium" class="impact-btn flex-1 py-4 rounded-2xl border-2 border-gray-200 text-center text-sm font-medium hover:border-[#0b3d91]">ปานกลาง</button>
-                            <button onclick="selectImpact(this, 2, 'high')" data-criterion="2" data-level="high" class="impact-btn flex-1 py-4 rounded-2xl border-2 border-gray-200 text-center text-sm font-medium hover:border-[#0b3d91]">สูง</button>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="bg-amber-500 text-white text-sm font-semibold px-3 py-1 rounded-full">I</span>
+                            <h3 class="text-xl font-semibold">ด้านการรักษาความถูกต้องครบถ้วน (Integrity)</h3>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-5">พิจารณาผลกระทบเมื่อข้อมูลหรือระบบถูกดัดแปลงแก้ไขโดยไม่ได้รับอนุญาต</p>
+                        
+                        <div class="space-y-5" id="group-i">
+                            <!-- จะถูกสร้างด้วย JS -->
                         </div>
                     </div>
 
-                    <!-- ด้าน 3 -->
+                    <!-- ========== A: Availability ========== -->
                     <div>
-                        <label class="block text-sm font-medium mb-4">3. ความสามารถในการดำเนินการตามหน้าที่ของหน่วยงาน</label>
-                        <div class="flex gap-3">
-                            <button onclick="selectImpact(this, 3, 'low')" data-criterion="3" data-level="low" class="impact-btn flex-1 py-4 rounded-2xl border-2 border-gray-200 text-center text-sm font-medium hover:border-[#0b3d91]">ต่ำ</button>
-                            <button onclick="selectImpact(this, 3, 'medium')" data-criterion="3" data-level="medium" class="impact-btn flex-1 py-4 rounded-2xl border-2 border-gray-200 text-center text-sm font-medium hover:border-[#0b3d91]">ปานกลาง</button>
-                            <button onclick="selectImpact(this, 3, 'high')" data-criterion="3" data-level="high" class="impact-btn flex-1 py-4 rounded-2xl border-2 border-gray-200 text-center text-sm font-medium hover:border-[#0b3d91]">สูง</button>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="bg-emerald-600 text-white text-sm font-semibold px-3 py-1 rounded-full">A</span>
+                            <h3 class="text-xl font-semibold">ด้านการรักษาสภาพพร้อมใช้งาน (Availability)</h3>
                         </div>
-                    </div>
-
-                    <!-- ด้าน 4 -->
-                    <div>
-                        <label class="block text-sm font-medium mb-4">4. ความมั่นคงของรัฐและความสงบเรียบร้อยภายในประเทศ</label>
-                        <div class="flex gap-3">
-                            <button onclick="selectImpact(this, 4, 'low')" data-criterion="4" data-level="low" class="impact-btn flex-1 py-4 rounded-2xl border-2 border-gray-200 text-center text-sm font-medium hover:border-[#0b3d91]">ต่ำ</button>
-                            <button onclick="selectImpact(this, 4, 'medium')" data-criterion="4" data-level="medium" class="impact-btn flex-1 py-4 rounded-2xl border-2 border-gray-200 text-center text-sm font-medium hover:border-[#0b3d91]">ปานกลาง</button>
-                            <button onclick="selectImpact(this, 4, 'high')" data-criterion="4" data-level="high" class="impact-btn flex-1 py-4 rounded-2xl border-2 border-gray-200 text-center text-sm font-medium hover:border-[#0b3d91]">สูง</button>
+                        <p class="text-sm text-gray-500 mb-5">พิจารณาผลกระทบเมื่อระบบสารสนเทศหยุดชะงักหรือไม่สามารถให้บริการได้</p>
+                        
+                        <div class="space-y-5" id="group-a">
+                            <!-- จะถูกสร้างด้วย JS -->
                         </div>
                     </div>
                 </div>
 
-                <!-- สรุปผล -->
-                <div class="lg:col-span-5">
-                    <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 h-full flex flex-col">
-                        <h3 class="font-semibold text-lg mb-6">สรุปผลการประเมิน</h3>
-                        <div id="impact-result" class="flex-1 flex items-center justify-center text-center">
-                            <div class="text-center">
-                                <div id="impact-badge" class="inline-flex items-center px-10 py-4 text-4xl font-bold rounded-3xl mb-6"></div>
-                                <p class="text-sm text-gray-500">ระดับผลกระทบสูงสุดจากทุกด้านจะถูกเลือกเป็นระดับผลกระทบโดยรวมของบริการ</p>
+                <!-- ด้านขวา: สรุปผล (Sticky) -->
+                <div class="xl:col-span-4">
+                    <div class="bg-white dark:bg-gray-800 rounded-3xl border p-6 sticky top-24">
+                        <h3 class="font-semibold text-lg mb-5">สรุปผลการประเมิน</h3>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">C - ความลับ</span>
+                                <span id="result-c" class="font-semibold px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-gray-700">-</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">I - ความถูกต้องครบถ้วน</span>
+                                <span id="result-i" class="font-semibold px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-gray-700">-</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">A - สภาพพร้อมใช้งาน</span>
+                                <span id="result-a" class="font-semibold px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-gray-700">-</span>
                             </div>
                         </div>
-                        <button onclick="resetImpact()" class="mt-auto text-sm text-gray-500 hover:text-gray-700 flex items-center justify-center gap-x-2">
-                            <i class="fa-solid fa-rotate-right"></i> รีเซ็ตการประเมิน
-                        </button>
+
+                        <div class="border-t pt-5 mb-6">
+                            <p class="text-sm text-gray-500 mb-2">ระดับผลกระทบโดยรวม</p>
+                            <div id="final-impact" class="text-center py-4 rounded-2xl text-2xl font-bold bg-gray-100 dark:bg-gray-700 text-gray-400">
+                                ยังไม่ประเมิน
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <button onclick="printImpact()" class="w-full flex items-center justify-center gap-2 bg-[#0b3d91] text-white py-3 rounded-2xl font-medium hover:bg-[#0a2e70]">
+                                <i class="fa-solid fa-print"></i> พิมพ์ผลการประเมิน
+                            </button>
+                            <button onclick="resetImpact()" class="w-full flex items-center justify-center gap-2 text-sm text-gray-500 hover:text-gray-700 py-2">
+                                <i class="fa-solid fa-rotate-right"></i> รีเซ็ตการประเมิน
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -642,59 +687,221 @@ function showControlDetail(id) {
                 alert("🚀 ฟังก์ชันประเมินตนเอง\n\nจะเปิดให้ใช้งานในเวอร์ชันถัดไป\n(กำลังพัฒนา)");
         }
 
-        let impactSelections = {};
+        // ==================== IMPACT LEVEL (ตามประกาศ สกมช. 2566) ====================
+        const impactData = {
+            c: [
+                { id: 'c1', label: 'การดำเนินงาน', desc: 'ผลกระทบต่อความสามารถในการดำเนินการตามหน้าที่ของหน่วยงาน' },
+                { id: 'c2', label: 'การเงินและทรัพย์สิน', desc: 'ผลกระทบต่อมูลค่าความเสียหายทางการเงินหรือทรัพย์สิน' },
+                { id: 'c3', label: 'ชื่อเสียง', desc: 'ผลกระทบต่อชื่อเสียงของหน่วยงานหรือบุคคล' },
+                { id: 'c4', label: 'ความสงบเรียบร้อย', desc: 'ผลกระทบต่อความสงบเรียบร้อยภายในประเทศ' },
+                { id: 'c5', label: 'ความมั่นคง', desc: 'ผลกระทบต่อความมั่นคงของรัฐ' }
+            ],
+            i: [
+                { id: 'i1', label: 'การดำเนินงาน', desc: 'ผลกระทบต่อความสามารถในการดำเนินการตามหน้าที่ของหน่วยงาน' },
+                { id: 'i2', label: 'การเงินและทรัพย์สิน', desc: 'ผลกระทบต่อมูลค่าความเสียหายทางการเงินหรือทรัพย์สิน' },
+                { id: 'i3', label: 'ชื่อเสียง', desc: 'ผลกระทบต่อชื่อเสียงของหน่วยงานหรือบุคคล' },
+                { id: 'i4', label: 'ชีวิตและร่างกาย', desc: 'ผลกระทบต่อชีวิต ร่างกาย หรืออนามัยของบุคคล' },
+                { id: 'i5', label: 'ความมั่นคง', desc: 'ผลกระทบต่อความมั่นคงของรัฐหรือโครงสร้างพื้นฐานสำคัญทางสารสนเทศ' }
+            ],
+            a: [
+                { id: 'a1', label: 'การดำเนินงาน', desc: 'ผลกระทบต่อความสามารถในการดำเนินการตามหน้าที่ของหน่วยงาน' },
+                { id: 'a2', label: 'การเงินและทรัพย์สิน', desc: 'ผลกระทบต่อมูลค่าความเสียหายทางการเงินหรือทรัพย์สิน' },
+                { id: 'a3', label: 'ชื่อเสียง', desc: 'ผลกระทบต่อชื่อเสียงของหน่วยงานหรือบุคคล' },
+                { id: 'a4', label: 'การรับบริการ', desc: 'ผลกระทบต่อการรับบริการของประชาชนหรือผู้ใช้บริการ' },
+                { id: 'a5', label: 'ความมั่นคง', desc: 'ผลกระทบต่อความมั่นคงของรัฐหรือโครงสร้างพื้นฐานสำคัญทางสารสนเทศ' }
+            ]
+        };
 
-function selectImpact(btn, criterion, level) {
-    // ลบ highlight ปุ่มอื่นในแถวเดียวกัน
-    const row = btn.parentElement;
-    row.querySelectorAll('button').forEach(b => {
-        b.classList.remove('border-[#0b3d91]', 'bg-[#0b3d91]', 'text-white');
-        b.classList.add('border-gray-200', 'dark:border-gray-600');
-    });
+        const levelOrder = { 'none': 0, 'low': 1, 'medium': 2, 'high': 3 };
+        const levelLabel = {
+            'none': 'ไม่มีผลกระทบ',
+            'low': 'ต่ำ',
+            'medium': 'กลาง',
+            'high': 'สูง'
+        };
+        const levelColor = {
+            'none': 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300',
+            'low': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300',
+            'medium': 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300',
+            'high': 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300'
+        };
 
-    // highlight ปุ่มที่เลือก
-    btn.classList.add('border-[#0b3d91]', 'bg-[#0b3d91]', 'text-white');
+        let impactSelections = {}; // เก็บค่าที่เลือกทั้งหมด
 
-    impactSelections[criterion] = level;
-    calculateImpactResult();
-}
+        function renderImpactGroups() {
+            ['c', 'i', 'a'].forEach(group => {
+                const container = document.getElementById(`group-${group}`);
+                if (!container) return;
+                container.innerHTML = '';
 
-function calculateImpactResult() {
-    const levels = Object.values(impactSelections);
-    if (levels.length === 0) {
-        document.getElementById('impact-badge').innerHTML = '';
-        return;
-    }
+                impactData[group].forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-5';
+                    div.innerHTML = `
+                        <div class="mb-3">
+                            <div class="font-medium">${item.label}</div>
+                            <div class="text-sm text-gray-500 mt-0.5">${item.desc}</div>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="btns-${item.id}">
+                            <button onclick="selectImpactLevel('${item.id}', 'none', this)" class="impact-level-btn py-2.5 rounded-xl border-2 border-gray-200 dark:border-gray-600 text-sm hover:border-gray-400">ไม่มีผลกระทบ</button>
+                            <button onclick="selectImpactLevel('${item.id}', 'low', this)" class="impact-level-btn py-2.5 rounded-xl border-2 border-gray-200 dark:border-gray-600 text-sm hover:border-emerald-500">ต่ำ</button>
+                            <button onclick="selectImpactLevel('${item.id}', 'medium', this)" class="impact-level-btn py-2.5 rounded-xl border-2 border-gray-200 dark:border-gray-600 text-sm hover:border-amber-500">กลาง</button>
+                            <button onclick="selectImpactLevel('${item.id}', 'high', this)" class="impact-level-btn py-2.5 rounded-xl border-2 border-gray-200 dark:border-gray-600 text-sm hover:border-red-500">สูง</button>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            });
+        }
 
-    let resultLevel = 'low';
-    if (levels.includes('high')) resultLevel = 'high';
-    else if (levels.includes('medium')) resultLevel = 'medium';
+        function selectImpactLevel(id, level, btn) {
+            // ลบ highlight ปุ่มอื่นในกลุ่มเดียวกัน
+            const parent = btn.parentElement;
+            parent.querySelectorAll('button').forEach(b => {
+                b.classList.remove('border-[#0b3d91]', 'bg-[#0b3d91]', 'text-white', 'border-emerald-500', 'bg-emerald-500', 'border-amber-500', 'bg-amber-500', 'border-red-500', 'bg-red-500');
+                b.classList.add('border-gray-200', 'dark:border-gray-600');
+            });
 
-    const badge = document.getElementById('impact-badge');
-    let color = '', label = '';
+            // ใส่ highlight ปุ่มที่เลือก
+            if (level === 'none') {
+                btn.classList.add('border-gray-500', 'bg-gray-500', 'text-white');
+            } else if (level === 'low') {
+                btn.classList.add('border-emerald-500', 'bg-emerald-500', 'text-white');
+            } else if (level === 'medium') {
+                btn.classList.add('border-amber-500', 'bg-amber-500', 'text-white');
+            } else {
+                btn.classList.add('border-red-500', 'bg-red-500', 'text-white');
+            }
 
-    if (resultLevel === 'high') {
-        color = 'bg-red-600 text-white';
-        label = 'สูง (High)';
-    } else if (resultLevel === 'medium') {
-        color = 'bg-amber-500 text-white';
-        label = 'ปานกลาง (Medium)';
-    } else {
-        color = 'bg-emerald-600 text-white';
-        label = 'ต่ำ (Low)';
-    }
+            impactSelections[id] = level;
+            calculateImpactResult();
+        }
 
-    badge.innerHTML = `<span class="${color} px-10 py-4 rounded-3xl text-4xl font-bold">${label}</span>`;
-}
+        function getHighestLevel(ids) {
+            let max = 'none';
+            ids.forEach(id => {
+                const val = impactSelections[id] || 'none';
+                if (levelOrder[val] > levelOrder[max]) max = val;
+            });
+            return max;
+        }
 
-function resetImpact() {
-    impactSelections = {};
-    document.querySelectorAll('.impact-btn').forEach(btn => {
-        btn.classList.remove('border-[#0b3d91]', 'bg-[#0b3d91]', 'text-white');
-        btn.classList.add('border-gray-200', 'dark:border-gray-600');
-    });
-    document.getElementById('impact-badge').innerHTML = '';
-}
+        function calculateImpactResult() {
+            const cLevel = getHighestLevel(['c1','c2','c3','c4','c5']);
+            const iLevel = getHighestLevel(['i1','i2','i3','i4','i5']);
+            const aLevel = getHighestLevel(['a1','a2','a3','a4','a5']);
+
+            // อัปเดตผลรายด้าน
+            updateResultBadge('result-c', cLevel);
+            updateResultBadge('result-i', iLevel);
+            updateResultBadge('result-a', aLevel);
+
+            // สรุปผลรวม (สูงสุดยึดอันนั้น)
+            const overall = [cLevel, iLevel, aLevel].reduce((max, cur) => 
+                levelOrder[cur] > levelOrder[max] ? cur : max, 'none');
+
+            const finalEl = document.getElementById('final-impact');
+            if (Object.keys(impactSelections).length === 0) {
+                finalEl.className = 'text-center py-4 rounded-2xl text-2xl font-bold bg-gray-100 dark:bg-gray-700 text-gray-400';
+                finalEl.textContent = 'ยังไม่ประเมิน';
+            } else {
+                const labels = {
+                    'none': 'ไม่มีผลกระทบ (No Impact)',
+                    'low': 'ระดับต่ำ (Low Impact)',
+                    'medium': 'ระดับกลาง (Medium Impact)',
+                    'high': 'ระดับสูง (High Impact)'
+                };
+                const colors = {
+                    'none': 'bg-gray-200 text-gray-700',
+                    'low': 'bg-emerald-500 text-white',
+                    'medium': 'bg-amber-500 text-white',
+                    'high': 'bg-red-600 text-white'
+                };
+                finalEl.className = `text-center py-4 rounded-2xl text-xl font-bold ${colors[overall]}`;
+                finalEl.textContent = labels[overall];
+            }
+        }
+
+        function updateResultBadge(elementId, level) {
+            const el = document.getElementById(elementId);
+            el.textContent = levelLabel[level];
+            el.className = `font-semibold px-3 py-1 rounded-full text-sm ${levelColor[level]}`;
+        }
+
+        function resetImpact() {
+            impactSelections = {};
+            document.querySelectorAll('.impact-level-btn').forEach(btn => {
+                btn.classList.remove('border-[#0b3d91]', 'bg-[#0b3d91]', 'text-white', 
+                    'border-emerald-500', 'bg-emerald-500', 'border-amber-500', 'bg-amber-500', 
+                    'border-red-500', 'bg-red-500', 'border-gray-500', 'bg-gray-500');
+                btn.classList.add('border-gray-200', 'dark:border-gray-600');
+            });
+            calculateImpactResult();
+        }
+
+        function printImpact() {
+            const systemName = document.getElementById('system-name').value || '-';
+            const agencyName = document.getElementById('agency-name').value || '-';
+            const finalResult = document.getElementById('final-impact').textContent || '-';
+            const today = new Date().toLocaleDateString('th-TH');
+
+            const html = `
+            <!DOCTYPE html>
+            <html lang="th">
+            <head>
+                <meta charset="UTF-8">
+                <title>ผลการประเมินระดับผลกระทบ</title>
+                <style>
+                    body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; padding: 40px; color: #111; }
+                    h1 { font-size: 22px; margin-bottom: 6px; }
+                    .sub { color: #555; margin-bottom: 24px; font-size: 14px; }
+                    .meta p { margin: 6px 0; }
+                    .result-box {
+                        margin-top: 28px;
+                        padding: 16px 20px;
+                        border: 2px solid #0b3d91;
+                        border-radius: 12px;
+                        font-size: 18px;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+                    .footer { margin-top: 40px; font-size: 12px; color: #666; }
+                </style>
+            </head>
+            <body>
+                <h1>ผลการประเมินระดับผลกระทบ (Impact Level)</h1>
+                <div class="sub">ตามประกาศคณะกรรมการการรักษาความมั่นคงปลอดภัยไซเบอร์แห่งชาติ เรื่อง มาตรฐานการกำหนดคุณลักษณะความมั่นคงปลอดภัยไซเบอร์ให้แก่ข้อมูลหรือระบบสารสนเทศ พ.ศ. 2566</div>
+                
+                <div class="meta">
+                    <p><strong>ชื่อระบบสารสนเทศ:</strong> ${systemName}</p>
+                    <p><strong>ชื่อหน่วยงาน:</strong> ${agencyName}</p>
+                    <p><strong>วันที่ประเมิน:</strong> ${today}</p>
+                </div>
+            
+                <div class="result-box">
+                    ระดับผลกระทบโดยรวม: ${finalResult}
+                </div>
+            
+                <div class="footer">
+                    พิมพ์จากระบบ DGA Digital Service Standard
+                </div>
+            </body>
+            </html>`;
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(html);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+            }, 300);
+        }
+
+        // เรียกสร้างฟอร์มเมื่อโหลดหน้า
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('group-c')) {
+                renderImpactGroups();
+            }
+        });
 
 
         // ==================== DARK MODE + LOGO SWITCH ====================
