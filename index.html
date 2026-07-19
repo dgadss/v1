@@ -755,10 +755,16 @@ function showControlDetail(id) {
         }
 
         function selectImpactLevel(id, level, btn) {
-            // ลบ highlight ปุ่มอื่นในกลุ่มเดียวกัน
+            // ลบ highlight ปุ่มอื่นในกลุ่มเดียวกัน (รวมสีเทาของ "ไม่มีผลกระทบ")
             const parent = btn.parentElement;
             parent.querySelectorAll('button').forEach(b => {
-                b.classList.remove('border-[#0b3d91]', 'bg-[#0b3d91]', 'text-white', 'border-emerald-500', 'bg-emerald-500', 'border-amber-500', 'bg-amber-500', 'border-red-500', 'bg-red-500');
+                b.classList.remove(
+                    'border-[#0b3d91]', 'bg-[#0b3d91]', 'text-white',
+                    'border-emerald-500', 'bg-emerald-500',
+                    'border-amber-500', 'bg-amber-500',
+                    'border-red-500', 'bg-red-500',
+                    'border-gray-500', 'bg-gray-500'          // ← เพิ่มบรรทัดนี้
+                );
                 b.classList.add('border-gray-200', 'dark:border-gray-600');
             });
 
