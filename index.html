@@ -95,22 +95,22 @@
 
     /* ==================== PRINT STYLE สำหรับหน้า Impact ==================== */
     @media print {
+        /* บังคับให้พิมพ์สีพื้นหลังและสีตัวอักษร */
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
+
         /* ซ่อนส่วนที่ไม่ต้องการ */
         nav,
         footer,
-        #theme-icon,
-        .fa-moon,
-        .fa-sun,
-        button,
-        #visitor-count,
-        .fa-eye {
+        button {
             display: none !important;
         }
 
-        /* บังคับแสดงเฉพาะหน้า impact */
         body {
             background: white !important;
-            color: black !important;
             font-size: 12px;
         }
 
@@ -120,64 +120,73 @@
 
         #page-impact {
             display: block !important;
-            visibility: visible !important;
             position: relative !important;
             width: 100% !important;
             padding: 0 !important;
             margin: 0 !important;
         }
 
-        #page-impact * {
-            visibility: visible !important;
-        }
-
-        /* ปรับการ์ดและขอบให้สวยตอนพิมพ์ */
+        /* ให้การ์ดยังมีขอบ */
         .bg-white,
         .dark\:bg-gray-800 {
             background: white !important;
-            border: 1px solid #ddd !important;
+            border: 1px solid #ccc !important;
             box-shadow: none !important;
         }
 
-        /* สรุปผลด้านขวาไม่ต้อง sticky */
+        /* สรุปผลด้านขวา */
         .sticky {
             position: static !important;
         }
 
-        /* ปรับ grid ให้ยังคง 2 คอลัมน์ */
+        /* ===== สีปุ่มที่ถูกเลือก ===== */
+        .bg-emerald-500 {
+            background-color: #10b981 !important;
+            color: white !important;
+        }
+        .bg-amber-500 {
+            background-color: #f59e0b !important;
+            color: white !important;
+        }
+        .bg-red-500 {
+            background-color: #ef4444 !important;
+            color: white !important;
+        }
+        .bg-gray-500 {
+            background-color: #6b7280 !important;
+            color: white !important;
+        }
+
+        /* ===== สีกล่องสรุปผล ===== */
+        .bg-emerald-500, 
+        #final-impact.bg-emerald-500 {
+            background-color: #10b981 !important;
+            color: white !important;
+        }
+        .bg-amber-500,
+        #final-impact.bg-amber-500 {
+            background-color: #f59e0b !important;
+            color: white !important;
+        }
+        .bg-red-600,
+        #final-impact.bg-red-600 {
+            background-color: #dc2626 !important;
+            color: white !important;
+        }
+        .bg-gray-200,
+        #final-impact.bg-gray-200 {
+            background-color: #e5e7eb !important;
+            color: #374151 !important;
+        }
+
+        /* ปรับ layout */
         .xl\:grid-cols-12 {
-            display: grid !important;
-            grid-template-columns: 2fr 1fr !important;
-            gap: 20px !important;
+            display: block !important;
         }
-
-        .xl\:col-span-8 {
-            grid-column: span 2 !important;
-        }
-
+        .xl\:col-span-8,
         .xl\:col-span-4 {
-            grid-column: span 1 !important;
-        }
-
-        /* ปุ่มที่ถูกเลือกยังคงเห็นสี */
-        .bg-emerald-500 { background-color: #10b981 !important; color: white !important; }
-        .bg-amber-500  { background-color: #f59e0b !important; color: white !important; }
-        .bg-red-500    { background-color: #ef4444 !important; color: white !important; }
-        .bg-gray-500   { background-color: #6b7280 !important; color: white !important; }
-        .bg-red-600    { background-color: #dc2626 !important; color: white !important; }
-
-        /* ซ่อนปุ่มพิมพ์และรีเซ็ต */
-        button {
-            display: none !important;
-        }
-
-        /* ปรับระยะห่างให้กระชับ */
-        .space-y-10 > * + * {
-            margin-top: 1.5rem !important;
-        }
-
-        .mb-8 {
-            margin-bottom: 1.25rem !important;
+            width: 100% !important;
+            max-width: 100% !important;
         }
     }
     </style>
