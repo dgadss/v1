@@ -95,31 +95,89 @@
 
     /* ==================== PRINT STYLE สำหรับหน้า Impact ==================== */
     @media print {
-        body * {
-            visibility: hidden;
-        }
-        #page-impact, #page-impact * {
-            visibility: visible;
-        }
-        #page-impact {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            padding: 0;
-            margin: 0;
-        }
-        /* ซ่อนปุ่มที่ไม่ต้องการตอนพิมพ์ */
-        #page-impact button {
+        /* ซ่อนส่วนที่ไม่ต้องการ */
+        nav,
+        footer,
+        #theme-icon,
+        .fa-moon,
+        .fa-sun,
+        button,
+        #visitor-count,
+        .fa-eye {
             display: none !important;
         }
-        /* ปรับการ์ดสรุปผลให้แสดงเต็ม */
+
+        /* บังคับแสดงเฉพาะหน้า impact */
+        body {
+            background: white !important;
+            color: black !important;
+            font-size: 12px;
+        }
+
+        .page {
+            display: none !important;
+        }
+
+        #page-impact {
+            display: block !important;
+            visibility: visible !important;
+            position: relative !important;
+            width: 100% !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        #page-impact * {
+            visibility: visible !important;
+        }
+
+        /* ปรับการ์ดและขอบให้สวยตอนพิมพ์ */
+        .bg-white,
+        .dark\:bg-gray-800 {
+            background: white !important;
+            border: 1px solid #ddd !important;
+            box-shadow: none !important;
+        }
+
+        /* สรุปผลด้านขวาไม่ต้อง sticky */
         .sticky {
             position: static !important;
         }
-        /* ลดเงาและขอบที่ไม่จำเป็น */
-        .shadow, .shadow-sm {
-            box-shadow: none !important;
+
+        /* ปรับ grid ให้ยังคง 2 คอลัมน์ */
+        .xl\:grid-cols-12 {
+            display: grid !important;
+            grid-template-columns: 2fr 1fr !important;
+            gap: 20px !important;
+        }
+
+        .xl\:col-span-8 {
+            grid-column: span 2 !important;
+        }
+
+        .xl\:col-span-4 {
+            grid-column: span 1 !important;
+        }
+
+        /* ปุ่มที่ถูกเลือกยังคงเห็นสี */
+        .bg-emerald-500 { background-color: #10b981 !important; color: white !important; }
+        .bg-amber-500  { background-color: #f59e0b !important; color: white !important; }
+        .bg-red-500    { background-color: #ef4444 !important; color: white !important; }
+        .bg-gray-500   { background-color: #6b7280 !important; color: white !important; }
+        .bg-red-600    { background-color: #dc2626 !important; color: white !important; }
+
+        /* ซ่อนปุ่มพิมพ์และรีเซ็ต */
+        button {
+            display: none !important;
+        }
+
+        /* ปรับระยะห่างให้กระชับ */
+        .space-y-10 > * + * {
+            margin-top: 1.5rem !important;
+        }
+
+        .mb-8 {
+            margin-bottom: 1.25rem !important;
         }
     }
     </style>
@@ -876,63 +934,6 @@ function showControlDetail(id) {
                 btn.classList.add('border-gray-200', 'dark:border-gray-600');
             });
             calculateImpactResult();
-        }
-
-        function printImpact() {
-            const systemName = document.getElementById('system-name').value || '-';
-            const agencyName = document.getElementById('agency-name').value || '-';
-            const finalResult = document.getElementById('final-impact').textContent || '-';
-            const today = new Date().toLocaleDateString('th-TH');
-
-            const html = `
-            <!DOCTYPE html>
-            <html lang="th">
-            <head>
-                <meta charset="UTF-8">
-                <title>ผลการประเมินระดับผลกระทบ</title>
-                <style>
-                    body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; padding: 40px; color: #111; }
-                    h1 { font-size: 22px; margin-bottom: 6px; }
-                    .sub { color: #555; margin-bottom: 24px; font-size: 14px; }
-                    .meta p { margin: 6px 0; }
-                    .result-box {
-                        margin-top: 28px;
-                        padding: 16px 20px;
-                        border: 2px solid #0b3d91;
-                        border-radius: 12px;
-                        font-size: 18px;
-                        font-weight: bold;
-                        text-align: center;
-                    }
-                    .footer { margin-top: 40px; font-size: 12px; color: #666; }
-                </style>
-            </head>
-            <body>
-                <h1>ผลการประเมินระดับผลกระทบ (Impact Level)</h1>
-                <div class="sub">ตามประกาศคณะกรรมการการรักษาความมั่นคงปลอดภัยไซเบอร์แห่งชาติ เรื่อง มาตรฐานการกำหนดคุณลักษณะความมั่นคงปลอดภัยไซเบอร์ให้แก่ข้อมูลหรือระบบสารสนเทศ พ.ศ. 2566</div>
-                
-                <div class="meta">
-                    <p><strong>ชื่อระบบสารสนเทศ:</strong> ${systemName}</p>
-                    <p><strong>ชื่อหน่วยงาน:</strong> ${agencyName}</p>
-                    <p><strong>วันที่ประเมิน:</strong> ${today}</p>
-                </div>
-            
-                <div class="result-box">
-                    ระดับผลกระทบโดยรวม: ${finalResult}
-                </div>
-            
-                <div class="footer">
-                    พิมพ์จากระบบ DGA Digital Service Standard
-                </div>
-            </body>
-            </html>`;
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(html);
-            printWindow.document.close();
-            printWindow.focus();
-            setTimeout(() => {
-                printWindow.print();
-            }, 300);
         }
 
         // เรียกสร้างฟอร์มเมื่อโหลดหน้า
