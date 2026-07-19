@@ -105,9 +105,10 @@
             display: none !important;
         }
 
-        /* ซ่อนเฉพาะปุ่มพิมพ์ + รีเซ็ต */
+        /* ซ่อนปุ่มพิมพ์ + รีเซ็ต */
         button[onclick="window.print()"],
-        button[onclick="resetImpact()"] {
+        button[onclick="resetImpact()"],
+        button[onclick="exportTable()"] {
             display: none !important;
         }
 
@@ -116,11 +117,12 @@
             font-size: 12px;
         }
 
+        /* ซ่อนทุกหน้า แล้วค่อยเปิดเฉพาะหน้าที่ active */
         .page {
             display: none !important;
         }
 
-        #page-impact {
+        .page.active {
             display: block !important;
             position: relative !important;
             width: 100% !important;
@@ -138,7 +140,7 @@
             position: static !important;
         }
 
-        /* สีปุ่มที่ถูกเลือก */
+        /* สีปุ่มที่ถูกเลือก (หน้า Impact) */
         .bg-emerald-500 { background-color: #10b981 !important; color: white !important; }
         .bg-amber-500  { background-color: #f59e0b !important; color: white !important; }
         .bg-red-500    { background-color: #ef4444 !important; color: white !important; }
@@ -161,6 +163,12 @@
         .xl\:col-span-8,
         .xl\:col-span-4 {
             width: 100% !important;
+        }
+
+        /* ตาราง Controls ให้พิมพ์เต็มหน้า */
+        #controls-table {
+            width: 100% !important;
+            font-size: 11px !important;
         }
     }
     </style>
